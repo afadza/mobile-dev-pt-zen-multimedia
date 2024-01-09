@@ -1,20 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { GluestackUIProvider } from "@gluestack-ui/themed";
+import { config } from "@gluestack-ui/config";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Main from "./src/layout/Main";
+import Splash from "./src/screens/splash/Splash";
+import Through from "./src/screens/walkthrough/Index";
+import Login from "./src/screens/login/Login";
+import MyTheme from "./src/assets/Theme";
+import { LogBox } from "react-native";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-export default function App() {
+const queryClient = new QueryClient();
+
+const App = () => {
+  const Stack = createNativeStackNavigator();
+  LogBox.ignoreAllLogs();
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <QueryClientProvider client={queryClient}>
+      <NavigationContainer theme={MyTheme}>
+        <GluestackUIProvider config={config}>
+          <Stack.Navigator
+            initialRouteName="Splash"
+            screenOptions={{ headerShown: false }}
+          >
+            <Stack.Screen name="Splash" component={Splash} />
+            <Stack.Screen name="Main" component={Main} />
+            <Stack.Screen name="Through" component={Through} />
+            <Stack.Screen name="Login" component={Login} />
+          </Stack.Navigator>
+        </GluestackUIProvider>
+      </NavigationContainer>
+    </QueryClientProvider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
