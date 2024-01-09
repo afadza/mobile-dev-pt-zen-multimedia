@@ -22,7 +22,7 @@ const Second = () => {
           }}
           alt="image"
           accessibilityLabel="icon"
-          width={400}
+          width={450}
           height={400}
           marginTop={50}
         />

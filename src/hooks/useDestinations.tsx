@@ -35,6 +35,5 @@ export default function useDestinations() {
       ),
   });
 
-  console.log(id);
   return { TopPlace, Popular, Destinations, id, setId, DetailDestination };
 }

@@ -4,7 +4,7 @@ const useSplash = ({ navigation }: any) => {
   useEffect(() => {
     if (navigation && typeof navigation.navigate === "function") {
       setTimeout(() => {
-        navigation.navigate("Through");
+        navigation.replace("Through");
       }, 3000);
     }
   }, [navigation]);

@@ -23,7 +23,7 @@ const useWalkThrough = ({ navigation }: any) => {
     if (activeComponent < 3) {
       setActiveComponent((prev) => prev + 1);
     } else {
-      navigation.navigate("Login");
+      navigation.replace("Login");
     }
   };
 

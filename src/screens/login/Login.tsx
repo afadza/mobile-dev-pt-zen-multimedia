@@ -27,6 +27,8 @@ import {
 } from "@gluestack-ui/themed";
 import { useTheme } from "@react-navigation/native";
 import React, { useState } from "react";
+import useAuth from "../../hooks/useAuth";
+import { ActivityIndicator } from "react-native";
 
 const Login = ({ navigation }: any) => {
   const { colors } = useTheme();
@@ -36,6 +38,9 @@ const Login = ({ navigation }: any) => {
       return !showState;
     });
   };
+
+  const { user, setUser, handleLogin, any } = useAuth();
+
   return (
     <View
       paddingVertical={50}
@@ -92,7 +97,13 @@ const Login = ({ navigation }: any) => {
                 alignItems="center"
                 borderColor={colors.border}
               >
-                <InputField type="text" placeholder="Enter your email" />
+                <InputField
+                  type="text"
+                  color={colors.text}
+                  placeholder="Enter your email"
+                  value={user.email}
+                  onChangeText={(text) => setUser({ ...user, email: text })}
+                />
               </Input>
             </VStack>
             <VStack space="xs">
@@ -108,6 +119,9 @@ const Login = ({ navigation }: any) => {
                 <InputField
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
+                  color={colors.text}
+                  value={user.password}
+                  onChangeText={(text) => setUser({ ...user, password: text })}
                 />
                 <InputSlot pr="$3" onPress={handleState}>
                   <InputIcon
@@ -135,12 +149,16 @@ const Login = ({ navigation }: any) => {
             </View>
             <Button
               width="$full"
-              onPress={() => navigation.navigate("Main")}
+              onPress={handleLogin}
               backgroundColor={colors.primary}
               height="$12"
               borderRadius="$lg"
             >
-              <ButtonText color="$white">Save</ButtonText>
+              {any ? (
+                <ActivityIndicator />
+              ) : (
+                <ButtonText color="$white">Save</ButtonText>
+              )}
             </Button>
           </VStack>
         </FormControl>
